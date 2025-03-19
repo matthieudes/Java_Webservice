@@ -1,0 +1,21 @@
+meta {
+  name: setUser
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/api/users/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "firstName": "joris",
+      "lastName": "Doe",
+      "email": "johnDoe@gmail.com",
+      "password": "password",
+      "creationDate": "2025-03-19"
+  }
+}
