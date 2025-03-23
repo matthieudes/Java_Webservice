@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 public class Day {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false)
@@ -16,7 +16,7 @@ public class Day {
     private String number;
 
     @ManyToOne
-    @JoinColumn(name = "idChampionnat")
+    @JoinColumn(name = "idchampionship")
     private ChampionShip championShip;
 
     public Day() {

@@ -2,12 +2,14 @@ package com.ipi.jva324.gestionchampionnantapi.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -47,6 +49,17 @@ public class ChampionShip {
     @NotNull(message = "le champ drawPoint ne peut pas être null")
     private int drawPoint;
 
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "championships_teams",
+            joinColumns = { @JoinColumn(name = "championship_id") },
+            inverseJoinColumns = { @JoinColumn(name = "team_id") })
+    //@JsonIgnore
+    private Set<Team> teams = new HashSet<>();
+
 
     public ChampionShip() {
     }
@@ -61,6 +74,13 @@ public class ChampionShip {
         this.drawPoint = drawPoint;
     }
 
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> team) {
+        this.teams = team;
+    }
 
     public long getId() {
         return id;
@@ -119,5 +139,18 @@ public class ChampionShip {
 
     public void setDrawPoint(@NotNull(message = "le champ drawPoint ne peut pas être null") int drawPoint) {
         this.drawPoint = drawPoint;
+    }
+
+    public void addTeam(Team team) {
+        this.teams.add(team);
+        team.getChampionShip().add(this);
+    }
+
+    public void removeTeam(long teamId) {
+        Team team = this.teams.stream().filter(t -> t.getId() == teamId).findFirst().orElse(null);
+        if (team != null) {
+            this.teams.remove(team);
+            team.getChampionShip().remove(this);
+        }
     }
 }

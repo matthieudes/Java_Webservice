@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false)

@@ -1,12 +1,16 @@
 package com.ipi.jva324.gestionchampionnantapi.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -26,6 +30,16 @@ public class Team {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date creationDate;
 
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "teams")
+    @JsonIgnore
+    private Set<ChampionShip> championShips = new HashSet<>();
+
     public Team() {
     }
 
@@ -36,6 +50,14 @@ public class Team {
     @PrePersist
     protected void onCreate() {
         this.creationDate = new Date();
+    }
+
+    public Set<ChampionShip> getChampionShip() {
+        return championShips;
+    }
+
+    public void setChampionShip(Set<ChampionShip> championShip) {
+        this.championShips = championShip;
     }
 
     public Long getId() {

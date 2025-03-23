@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="db88ec74-041f-4e50-8435-fb18bf4950c0" name="spring_api@localhost Mapping">
+      <data-sources db="b4790c0e-b294-4be9-a25e-9269ef4eb0c7" ddl="1daa79f9-5647-4d35-add7-f3fe4dff9927" />
+    </mapping>
+  </component>
+  <component name="SqlDataSourceStorage">
+    <option name="dataSources">
+      <list>
+        <State>
+          <option name="id" value="1daa79f9-5647-4d35-add7-f3fe4dff9927" />
+          <option name="name" value="spring_api@localhost (DDL)" />
+          <option name="dbmsName" value="MYSQL" />
+          <option name="urls">
+            <array />
+          </option>
+          <option name="outLayout" value="File per object by schema.groovy" />
+        </State>
+      </list>
+    </option>
+  </component>
+</project>
